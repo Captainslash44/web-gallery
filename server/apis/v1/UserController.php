@@ -21,7 +21,10 @@ class UserController{
 
         if(! User::getUser($email)){
             User::create($fullname, $email, $password);
-            User::save();
+            echo json_encode(User::save());
+            
+        }else{
+            echo json_encode(false);
         }
     }
 
@@ -34,10 +37,11 @@ class UserController{
         }
 
         if(User::verifyPassword($email, $password)){
-            echo json_encode(true);
+            $message = ["status" => true, "name" => User::getUser($email)[0]["fullname"]];
         }else{
-            echo json_encode(false);
+            $message = ["status" => false];
         }
+        echo json_encode($message);
     }
 
 }

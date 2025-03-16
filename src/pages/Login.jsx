@@ -24,9 +24,11 @@ const Login = () => {
       "http://localhost/web-gallery/server/login",
       data
     );
-    if (!response.data) {
+    if (!response.data["status"]) {
       console.log("wrong credentials");
     } else {
+      console.log(response.data);
+      localStorage.setItem("name", response.data["name"]);
       navigate("/home");
     }
   };

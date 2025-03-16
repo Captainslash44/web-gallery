@@ -31,7 +31,7 @@ class test{
         $email = $_POST["email"];
         $password = $_POST["password"];
 
-        echo json_encode(User::verifyPassword($email, $password));
+        echo json_encode(User::getUser($email)[0]["id"]);
 
     }
 }
