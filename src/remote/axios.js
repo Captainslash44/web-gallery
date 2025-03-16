@@ -5,7 +5,7 @@ axios.defaults.headers = {
   "Content-Type": "application/json",
 };
 
-export const request = async ({ method, route, body }) => {
+export  const request = async ({ method, route, body }) => {
   try {
     const response = await axios.request({
       method, // => method: method

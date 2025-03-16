@@ -24,11 +24,11 @@ public static function getUser($email){
     $query = $conn->prepare("SELECT * FROM users where email = ?");
     $query->bind_param("s", $email);
     $query->execute();
+    $result = $query->get_result();
 
-    if($query->num_rows == 0){
+    if(mysqli_num_rows($result) === 0){
         return false;
     }else{
-        $result = $query->get_result();
         $response = [];
         while ($i = $result->fetch_assoc()){
             $response[] = $i; 
@@ -44,11 +44,11 @@ public static function verifyPassword($email, $password){
     $query = $conn->prepare("SELECT password FROM users where email = ?");
     $query->bind_param("s", $email);
     $query->execute();
+    $result = $query->get_result();
 
-    if($query->num_rows == 0){
-        return false;
+    if(mysqli_num_rows($result) == 0){
+        return $query->num_rows;
     }else{
-        $result = $query->get_result();
         $hash = $result->fetch_assoc()["password"];
 
         if(password_verify($password,$hash)){
@@ -57,6 +57,20 @@ public static function verifyPassword($email, $password){
             return false;
         }
     }
+}
+
+public static function getAll(){
+    global $conn;
+
+    $query = $conn->prepare("SELECT * FROM users");
+    $query->execute();
+    $result = $query->get_result();
+    $response = [];
+    while ($i = $result->fetch_assoc()){
+        $response[] = $i;
+    }
+
+    return $response;
 }
 
 }

@@ -3,7 +3,7 @@ import "./styles.css";
 
 const ImageCard = ({ src }) => {
   return (
-    <div>
+    <div className="img-wrapper">
       <img className="image rounded-border tm" src={src} alt="" />
     </div>
   );

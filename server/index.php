@@ -3,18 +3,18 @@
 $base_dir = rtrim(dirname($_SERVER['SCRIPT_NAME']),'/');
 $request = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-echo $request." ";
+
 
 if(strpos($request, $base_dir) === 0) {
     $request = substr($request, strlen($base_dir));
 }
 
-echo $request." ";
+
 
 if($request == '') {
     $request = '/';
 }
-echo $request." ";
+
 
 $apis = [
     '/images' => ['controller' => 'ImageController', 'method' => 'loadImages'],
